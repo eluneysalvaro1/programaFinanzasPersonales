@@ -12,7 +12,7 @@ function menuPrincipal(){
     echo "( 6 ) Crear plan de ahorro en MESES\n";
     echo "( 7 ) Calcular ganancia en base a tasa de interes %\n";
     echo "( 8 ) Informacion basica sobre tus finanzas\n";
-    echo "( 0 ) Salir ";
+    echo "( 0 ) Salir \n";
 
     $opciones = trim(fgets(STDIN));
     
