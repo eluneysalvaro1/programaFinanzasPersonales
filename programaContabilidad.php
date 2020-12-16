@@ -12,6 +12,7 @@ function menuPrincipal(){
     echo "( 6 ) Crear plan de ahorro en MESES\n";
     echo "( 7 ) Calcular ganancia en base a tasa de interes %\n";
     echo "( 8 ) Informacion basica sobre tus finanzas\n";
+    echo "( 9 ) Realizar test de Racionalidad\n";
     echo "( 0 ) Salir \n";
 
     $opciones = trim(fgets(STDIN));
@@ -19,6 +20,8 @@ function menuPrincipal(){
     return $opciones;
 };
 
+//TODOS LOS DIAS TOMAMOS DECISIONES FINANCIERAS 
+//Bienestar Financiero: Entrelaza la seguridad con la libertad financiera, en un presente y un futuro.  
 
 
 /**
@@ -429,21 +432,46 @@ function tasaInteres(){
     echo "¿Con que tasa de interes?: "; 
     $tasaInteres = trim(fgets(STDIN)); 
 
+    echo "¿Por cuanto tiempo (Minimo 1 Mes): ?";
+    $tiempoPlazo = trim(fgets(STDIN));  
+
+
     $interesAnual = round(($dineroAInvertir * $tasaInteres) / 100);
     $interesMensual = round($interesAnual / 12); 
     $interesDiario = round($interesMensual / 30);
-    
+
+    $interesEspecial = $tiempoPlazo * $interesMensual; 
+
+    echo "Para el tiempo que solicitas, ganarias un total de: " . $interesEspecial . "\n";
     echo "Para la cantidad de: " . $dineroAInvertir . " a una tasa del: " . $tasaInteres . " obtendras lo siguiente: " . "\n En el año: " . $interesAnual . "\n En el mes: " . $interesMensual . "\n Al dia: " . $interesDiario; 
 }; 
 
-
+function testRacionalidad(){
+    $arrayPreguntas = [
+        "1", "2" , "3", "4", "5" , "6" , "7", "8"
+    ];
+    $arrayRespuestas = [
+        "si" , 2 , 8 , "hola" , 8 , 9 , "holee" , true
+    ];
+    $acum = 0;
+    for ($i=0; $i <= 7 ; $i++) { 
+        echo $arrayPreguntas[$i];
+        $rta = trim(fgets(STDIN)); 
+        if ($rta == $arrayRespuestas[$i]) {
+            $acum = $acum + 1;
+        }else{
+            $acum = $acum + 0;
+        };
+    }
+    echo "Tu puntaje es de: " . $acum . "\n"; 
+}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------* PROGRAMA PRINCIPAL *-------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-$quePasa = menuPrincipal(); 
+do{
+    $quePasa = menuPrincipal(); 
 
 if ($quePasa == 1) {
     ingresosDia();
@@ -467,10 +495,12 @@ if ($quePasa == 1) {
     tasaInteres();
 }elseif($quePasa == 8){
     consultaInformacionPrincipal();
+}elseif($quePasa == 9){
+    testRacionalidad();
 }elseif ($quePasa == 0) {
     echo "Cerrando..."; 
 };
-
+}while($quePasa > 0 && $quePasa <= 9);
 
 
 
